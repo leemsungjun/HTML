@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학내망 접속 VPN (Unofficial)</title>
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- Main Container -->
+    <div class="w-full max-w-lg bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+        
+        <!-- Header -->
+        <div class="bg-[#002c5f] p-6 text-center relative overflow-hidden">
+            <!-- Background Decoration -->
+            <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#FFFFFF" d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-4.9C93.5,9.4,82.2,23.1,70.8,34.5C59.4,45.9,47.9,55,35.6,63.4C23.3,71.8,10.2,79.5,-1.9,82.8C-14,86.1,-25.1,85,-36.4,79.2C-47.7,73.4,-59.2,62.9,-68.6,50.6C-78,38.3,-85.3,24.2,-86.6,9.5C-87.9,-5.2,-83.2,-20.5,-73.9,-32.8C-64.6,-45.1,-50.7,-54.4,-37.4,-62.1C-24.1,-69.8,-11.4,-75.9,2.6,-80.4C16.6,-84.9,30.5,-63,44.7,-76.4Z" transform="translate(100 100)" />
+                </svg>
+            </div>
+            
+            <h1 class="text-white text-2xl font-bold relative z-10">학내망 접속 도구</h1>
+            <p class="text-blue-200 text-sm mt-2 relative z-10">부경대학교 도서관 프록시(LibProxy) 연동</p>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6 space-y-6">
+            
+            <!-- Input Section -->
+            <div>
+                <label for="urlInput" class="block text-sm font-medium text-slate-700 mb-2">접속할 웹사이트 주소 (URL)</label>
+                <div class="flex shadow-sm rounded-md">
+                    <input type="text" id="urlInput" 
+                        class="flex-1 block w-full rounded-l-md border-slate-300 border px-4 py-3 focus:ring-[#002c5f] focus:border-[#002c5f] sm:text-sm outline-none transition" 
+                        placeholder="예: www.dbpia.co.kr">
+                    <button onclick="clearInput()" class="bg-slate-50 border-t border-b border-slate-300 px-3 text-slate-400 hover:text-slate-600 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <p class="text-xs text-slate-500 mt-2 ml-1">Example: dbpia.co.kr, sciencedirect.com</p>
+            </div>
+
+            <!-- Action Button -->
+            <button onclick="connectToProxy()" 
+                class="w-full bg-[#002c5f] hover:bg-[#001f44] text-white font-bold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-200 flex items-center justify-center group">
+                <span>학내망 IP로 접속하기</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+            </button>
+
+            <!-- Divider -->
+            <div class="relative">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-slate-200"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-white text-slate-500">자주 찾는 학술 사이트</span>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="quickConnect('https://www.dbpia.co.kr')" class="flex items-center justify-center px-4 py-2 border border-slate-200 rounded-md shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 hover:border-[#002c5f] transition">
+                    DBpia (국내학술)
+                </button>
+                <button onclick="quickConnect('https://www.sciencedirect.com')" class="flex items-center justify-center px-4 py-2 border border-slate-200 rounded-md shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 hover:border-[#002c5f] transition">
+                    ScienceDirect
+                </button>
+                <button onclick="quickConnect('https://scholar.google.co.kr')" class="flex items-center justify-center px-4 py-2 border border-slate-200 rounded-md shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 hover:border-[#002c5f] transition">
+                    Google Scholar
+                </button>
+                <button onclick="quickConnect('https://kiss.kstudy.com')" class="flex items-center justify-center px-4 py-2 border border-slate-200 rounded-md shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 hover:border-[#002c5f] transition">
+                    KISS (한국학술정보)
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-slate-50 px-6 py-4 border-t border-slate-200">
+            <div class="text-xs text-slate-500 leading-relaxed mb-3">
+                <p class="font-bold text-center mb-2">💡 이용 전 꼭 확인해주세요!</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>이용하시려면 <strong>부경대학교 도서관 로그인</strong>이 꼭 필요해요.</li>
+                    <li>학술·학습 목적 외의 사이트는 접속이 제한될 수 있어요.</li>
+                    <li>접속하신 사이트의 자동 로그인은 적용되지 않아요.</li>
+                </ul>
+            </div>
+            <div class="text-center mt-3">
+                <a href="https://libweb.pknu.ac.kr/login/" target="_blank" class="inline-flex items-center text-xs text-[#002c5f] hover:text-[#001f44] font-medium transition hover:underline">
+                    도서관 로그인 페이지 바로가기
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast (Hidden by default) -->
+    <div id="toast" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-4 py-2 rounded-full text-sm opacity-0 transition-opacity duration-300 pointer-events-none shadow-lg">
+        URL을 입력해주세요.
+    </div>
+
+    <script>
+        // PKNU Proxy Base URL
+        const PROXY_BASE = "https://libproxy.pknu.ac.kr/_Lib_Proxy_Url/";
+
+        const urlInput = document.getElementById('urlInput');
+
+        // Allow 'Enter' key to trigger connection
+        urlInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                connectToProxy();
+            }
+        });
+
+        function clearInput() {
+            urlInput.value = '';
+            urlInput.focus();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 3000);
+        }
+
+        function processUrl(input) {
+            let url = input.trim();
+            
+            if (!url) return null;
+
+            // Remove existing proxy prefix if user accidentally pasted it
+            if (url.includes(PROXY_BASE)) {
+                return url; 
+            }
+
+            // Check protocol
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                // Default to https for security, though some old academic sites might need http
+                url = 'https://' + url;
+            }
+
+            return PROXY_BASE + url;
+        }
+
+        function connectToProxy() {
+            const inputValue = urlInput.value;
+            const targetUrl = processUrl(inputValue);
+
+            if (targetUrl) {
+                window.open(targetUrl, '_blank');
+            } else {
+                showToast("접속할 URL을 입력해주세요.");
+                urlInput.focus();
+            }
+        }
+
+        function quickConnect(url) {
+            urlInput.value = url;
+            connectToProxy();
+        }
+    </script>
+</body>
+</html>
