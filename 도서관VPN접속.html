@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>학내망 접속 VPN</title>
+    <title>학내망 접속 VPN (Unofficial)</title>
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Noto Sans KR -->
@@ -33,7 +33,7 @@
             </div>
             
             <h1 class="text-white text-2xl font-bold relative z-10">학내망 접속 도구</h1>
-            <p class="text-blue-200 text-sm mt-2 relative z-10">국립부경대학교 도서관 프록시(LibProxy) 연동</p>
+            <p class="text-blue-200 text-sm mt-2 relative z-10">부경대학교 도서관 프록시(LibProxy) 연동</p>
         </div>
 
         <!-- Content -->
@@ -83,8 +83,8 @@
                 <button onclick="quickConnect('https://scholar.google.co.kr')" class="flex items-center justify-center px-4 py-2 border border-slate-200 rounded-md shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 hover:border-[#002c5f] transition">
                     Google Scholar
                 </button>
-                <button onclick="quickConnect('https://www.riss.kr')" class="flex items-center justify-center px-4 py-2 border border-slate-200 rounded-md shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 hover:border-[#002c5f] transition">
-                    RISS (학술연구정보서비스)
+                <button onclick="quickConnect('https://libweb.pknu.ac.kr/')" class="flex items-center justify-center px-4 py-2 border border-slate-200 rounded-md shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 hover:border-[#002c5f] transition">
+                    국립부경대 도서관
                 </button>
             </div>
         </div>
@@ -94,9 +94,10 @@
             <div class="text-xs text-slate-500 leading-relaxed mb-3">
                 <p class="font-bold text-center mb-2">💡 이용 전 꼭 확인해주세요!</p>
                 <ul class="list-disc pl-5 space-y-1">
-                    <li>이용하시려면 <strong>국립부경대학교 도서관 로그인</strong>이 꼭 필요해요.</li>
+                    <li>이용하시려면 <strong>부경대학교 도서관 로그인</strong>이 꼭 필요해요.</li>
                     <li>학술·학습 목적 외의 사이트는 접속이 제한될 수 있어요.</li>
                     <li>접속하신 사이트의 자동 로그인은 적용되지 않아요.</li>
+                    <li class="text-red-500 font-medium">RISS는 기관 인증이 필요해서 URL 직접 입력으로는 이용이 어렵고, 도서관 홈페이지를 거쳐서 접속해야 해요.</li>
                 </ul>
             </div>
             <div class="text-center mt-3">
@@ -179,7 +180,4 @@
         }
     </script>
 </body>
-
 </html>
-
-
